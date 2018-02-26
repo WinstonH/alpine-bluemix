@@ -46,15 +46,17 @@ RUN sed -i "s|display_errors\s*=\s*Off|display_errors = ${PHP_DISPLAY_ERRORS}|i"
 # /etc/php7/php-fpm.conf
 # /etc/php7/php.ini
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-&&apk --update --no-cache add x11vnc xvfb xrdp xauth alpine-desktop xfce4 ttf-freefont supervisor sudo openssl openssh dbus bash \
+&&apk --update --no-cache add git x11vnc xvfb xrdp xauth alpine-desktop xfce4 ttf-freefont supervisor sudo openssl openssh dbus bash \
 && addgroup alpine \
 && adduser  -G alpine -s /bin/sh -D alpine \
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
 && echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+&& git clone https://github.com/novnc/noVNC.git \
 && rm -rf /tmp/* /var/cache/apk/*
 
 ADD etc /etc
 COPY entrypoint.sh /usr/local/bin/
-
+WORKDIR /home/alpine
+USER alpine
 EXPOSE 80
 ENTRYPOINT ["entrypoint.sh"]
