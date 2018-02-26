@@ -45,9 +45,14 @@ RUN sed -i "s|display_errors\s*=\s*Off|display_errors = ${PHP_DISPLAY_ERRORS}|i"
     sed -i "s|;*date.timezone =.*|date.timezone = ${TZ}|i" /etc/php7/php.ini #config timezone
 # /etc/php7/php-fpm.conf
 # /etc/php7/php.ini
-RUN apk add --no-cache supervisor \
-    && rm -rf /var/cache/apk/*
-COPY supervisor.conf /etc/supervisor/supervisor.conf
+RUN apk --update --no-cache add x11vnc xvfb xrdp xauth alpine-desktop xfce4 ttf-freefont supervisor sudo openssl openssh dbus bash \
+&& addgroup alpine \
+&& adduser  -G alpine -s /bin/sh -D alpine \
+&& echo "alpine:alpine" | /usr/sbin/chpasswd \
+&& echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+&& rm -rf /tmp/* /var/cache/apk/*
+
+ADD etc /etc
 COPY entrypoint.sh /usr/local/bin/
 
 EXPOSE 80
