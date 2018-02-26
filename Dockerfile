@@ -45,6 +45,7 @@ RUN sed -i "s|display_errors\s*=\s*Off|display_errors = ${PHP_DISPLAY_ERRORS}|i"
     sed -i "s|;*date.timezone =.*|date.timezone = ${TZ}|i" /etc/php7/php.ini #config timezone
 # /etc/php7/php-fpm.conf
 # /etc/php7/php.ini
+ADD etc /etc
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
 &&apk --update --no-cache add git x11vnc xvfb xrdp xauth alpine-desktop xfce4 ttf-freefont supervisor sudo openssl openssh dbus bash \
 && addgroup alpine \
@@ -52,10 +53,12 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
 && echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 && git clone https://github.com/novnc/noVNC.git \
+&& xrdp-keygen xrdp auto \
+&& sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini \
+&& sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini \
 && rm -rf /tmp/* /var/cache/apk/*
 
-ADD etc /etc
-COPY entrypoint.sh /usr/local/bin/
+COPY entrypoint.sh /usr/sbin/
 WORKDIR /home/alpine
 USER alpine
 EXPOSE 80

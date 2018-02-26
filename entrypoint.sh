@@ -1,5 +1,5 @@
 #!/bin/sh
-php-fmp7
+sudo php-fpm7
 
 #prepare sshd config
 sudo mkdir -p /var/run/sshd
