@@ -56,7 +56,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 && xrdp-keygen xrdp auto \
 && sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini \
 && sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini \
-&& rm -rf /tmp/* /var/cache/apk/*
+&& rm -rf /tmp/* /var/cache/apk/* /etc/nginx/conf.d/default.conf
 
 COPY entrypoint.sh /usr/sbin/
 WORKDIR /home/alpine
