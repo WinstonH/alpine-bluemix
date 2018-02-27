@@ -1,5 +1,6 @@
 #!/bin/sh
 sudo php-fpm7
+sudo nginx
 
 #prepare sshd config
 sudo mkdir -p /var/run/sshd

@@ -16,7 +16,6 @@ RUN adduser -D -g 'www' www && \
     chown -R www:www /www && \
     cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 COPY nginx.conf /etc/nginx/
-ADD conf.d /etc/nginx/conf.d/
 ENV PHP_FPM_USER="www"
 ENV PHP_FPM_GROUP="www"
 ENV PHP_FPM_LISTEN_MODE="0660"
