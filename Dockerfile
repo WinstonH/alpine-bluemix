@@ -66,7 +66,9 @@ RUN unzip /www/DirectoryLister.zip \
 && mkdir /www/admin \
 && mv kodexplorer4.25.zip /www/admin \
 && cd /www/admin \
-&& unzip kodexplorer4.25.zip
+&& unzip kodexplorer4.25.zip \
+&& chmod 777 -Rf /www/admin
+&& rm kodexplorer4.25.zip
 # End websites adding
 COPY entrypoint.sh /usr/sbin/
 WORKDIR /home/alpine
