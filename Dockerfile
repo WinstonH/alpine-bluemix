@@ -52,8 +52,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
 && echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 && git clone https://github.com/novnc/noVNC.git \
-&& ln -s /noVNC/vnc.html /noVNC/index.html \
-&& xrdp-keygen xrdp auto \
+&& ln -s /noVNC/vnc.html /noVNC/index.html
+RUN xrdp-keygen xrdp auto \
 && sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini \
 && sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini \
 && rm -rf /tmp/* /var/cache/apk/* /etc/nginx/conf.d/default.conf
