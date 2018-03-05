@@ -46,16 +46,22 @@ RUN sed -i "s|display_errors\s*=\s*Off|display_errors = ${PHP_DISPLAY_ERRORS}|i"
 # /etc/php7/php.ini
 ADD etc /etc
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-&&apk --update --no-cache add git x11vnc xvfb xrdp xauth alpine-desktop xfce4 ttf-freefont supervisor sudo openssl openssh dbus bash \
+&&apk --update --no-cache add unzip git x11vnc xvfb xrdp xauth alpine-desktop xfce4 ttf-freefont supervisor sudo openssl openssh dbus bash \
 && addgroup alpine \
 && adduser  -G alpine -s /bin/sh -D alpine \
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
 && echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 && git clone https://github.com/novnc/noVNC.git \
+&& mkdir /noVNC/novnc \
+&& ln -s /noVNC/vnc.html /noVNC/novnc/index.html
 && xrdp-keygen xrdp auto \
 && sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini \
 && sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini \
 && rm -rf /tmp/* /var/cache/apk/* /etc/nginx/conf.d/default.conf
+COPY DirectoryLister.zip /www/
+RUN unzip /www/DirectoryLister.zip \
+&& mv /www/DirectoryLister-master/* /www \
+&& rm -f /www/DirectoryLister.zip/
 
 COPY entrypoint.sh /usr/sbin/
 WORKDIR /home/alpine
