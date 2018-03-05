@@ -67,7 +67,8 @@ RUN unzip /www/DirectoryLister.zip \
 && mv kodexplorer4.25.zip /www/admin \
 && cd /www/admin \
 && unzip kodexplorer4.25.zip \
-&& chmod 777 -Rf /www/admin
+&& chmod 777 -Rf /www/admin \
+&& chown -R www:www /www \
 && rm kodexplorer4.25.zip
 # End websites adding
 COPY entrypoint.sh /usr/sbin/
