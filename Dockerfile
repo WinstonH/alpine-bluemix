@@ -58,6 +58,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 && sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini \
 && rm -rf /tmp/* /var/cache/apk/* /etc/nginx/conf.d/default.conf
 COPY DirectoryLister.zip /www/
+WORKDIR /www
 RUN unzip /www/DirectoryLister.zip \
 && mv /www/DirectoryLister-master/* /www \
 && rm -f /www/DirectoryLister.zip/
