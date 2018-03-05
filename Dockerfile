@@ -53,7 +53,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 && echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 && git clone https://github.com/novnc/noVNC.git \
 && mkdir /noVNC/novnc \
-&& ln -s /noVNC/vnc.html /noVNC/novnc/index.html
+&& ln -s /noVNC/vnc.html /noVNC/novnc/index.html \
 && xrdp-keygen xrdp auto \
 && sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini \
 && sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini \
