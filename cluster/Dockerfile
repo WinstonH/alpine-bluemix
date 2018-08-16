@@ -17,7 +17,7 @@ RUN locale-gen zh_CN.UTF-8 \
 && echo 'root:root' |chpasswd \
 && sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
-&& apt-get clean \
+&& apt-get clean
 
 COPY supervisord.conf /etc/supervisord.conf
 COPY reset.sh /root/reset.sh
