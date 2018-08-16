@@ -4,6 +4,10 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
 ENV TZ Asia/Shanghai
 ENV LANG zh_CN.UTF-8
+
+# Timezone
+echo "$TZ" > /etc/timezone
+
 # Desktop
 RUN locale-gen zh_CN.UTF-8 \
 && apt-get update \
@@ -39,8 +43,9 @@ RUN curl -sL https://install.direct/go.sh | bash
 COPY config.json /etc/v2ray/config.json
 # Finish
 ADD entrypoint.sh /usr/sbin
-RUN chmod 600 /root/.vnc/passwd && \
-    chmod +x /usr/local/bin/net_speeder
+RUN chmod 600 /root/.vnc/passwd \
+&& chmod +x /usr/local/bin/net_speeder
+
 WORKDIR /root
 
 EXPOSE 21 22 80 8080 443 3306 3389 5901 8888 888 3000 10240
