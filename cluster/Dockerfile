@@ -6,7 +6,7 @@ ENV TZ Asia/Shanghai
 ENV LANG zh_CN.UTF-8
 
 # Timezone
-echo "$TZ" > /etc/timezone
+RUN echo "$TZ" > /etc/timezone
 
 # Desktop
 RUN locale-gen zh_CN.UTF-8 \
