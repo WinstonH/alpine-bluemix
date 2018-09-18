@@ -1,48 +1,48 @@
 {
   "log" : {
-    "access": "/var/log/v2ray/access.log",
-    "error": "/var/log/v2ray/error.log",
+    "access": "/var/log/v2ray/access.log", 
+    "error": "/var/log/v2ray/error.log", 
     "loglevel": "warning"
-  },
+  }, 
   "inbound": {
-    "port": 10240,
-    "protocol": "vmess",
+    "port": 10240, 
+    "protocol": "vmess", 
     "settings": {
       "clients": [
         {
-          "id": "UUID",
-          "level": 1,
+          "id": "UUID", 
+          "level": 1, 
           "alterId": 64
         }
       ]
-    },
-	"streamSettings": {
-	"network": "ws",
-    "wsSettings": {
+    }, 
+    "streamSettings": {
+      "network": "ws", 
+      "wsSettings": {
         "path": "/bluemix"
       }
-	}
-  },
+    }
+  }, 
   "outbound": {
-    "protocol": "freedom",
+    "protocol": "freedom", 
     "settings": {}
-  },
+  }, 
   "outboundDetour": [
     {
-      "protocol": "blackhole",
-      "settings": {},
+      "protocol": "blackhole", 
+      "settings": {}, 
       "tag": "blocked"
     }
-  ],
+  ], 
   "routing": {
-    "strategy": "rules",
+    "strategy": "rules", 
     "settings": {
       "rules": [
         {
-          "type": "field",
+          "type": "field", 
           "ip": [
             "geoip:private"
-          ],
+          ], 
           "outboundTag": "blocked"
         }
       ]
