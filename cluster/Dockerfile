@@ -24,8 +24,6 @@ RUN locale-gen zh_CN.UTF-8 \
 && apt-get clean
 
 COPY supervisord.conf /etc/supervisord.conf
-COPY reset.sh /root/reset.sh
-COPY check.sh /root/check.sh
 COPY vnc.sh /root/.vnc/vnc.sh
 # Net-speeder
 RUN git clone https://github.com/snooda/net-speeder.git net-speeder
@@ -50,4 +48,3 @@ WORKDIR /root
 
 EXPOSE 21 22 80 8080 443 3306 3389 5901 8888 888 3000 10240
 ENTRYPOINT ["entrypoint.sh"]
-
