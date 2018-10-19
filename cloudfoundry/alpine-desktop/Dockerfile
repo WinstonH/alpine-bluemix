@@ -18,9 +18,6 @@ RUN apk --update --no-cache add wget curl git x11vnc xvfb xrdp xauth alpine-desk
 && rm -rf /tmp/* /var/cache/apk/*
 # 使用entrypoint.sh，便于定制自己的镜像
 COPY entrypoint.sh /usr/sbin/entrypoint.sh
-# 导入Vagex挂机火狐专用脚本
-COPY check.sh /home/alpine/check.sh
-COPY reset.sh /home/alpine/reset.sh
 ADD etc /etc
 # 配置xrdp
 RUN xrdp-keygen xrdp auto
