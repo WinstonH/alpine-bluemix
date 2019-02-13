@@ -4,48 +4,72 @@
     "error": "/var/log/v2ray/error.log", 
     "loglevel": "warning"
   }, 
-  "inbound": {
-    "port": 10240, 
-    "protocol": "vmess", 
-    "settings": {
-      "clients": [
-        {
-          "id": "UUID", 
-          "level": 1, 
-          "alterId": 64
-        }
-      ]
-    }, 
-    "streamSettings": {
+  "inbound": [
+    {
+      "port": 10240, 
+      "protocol": "vmess", 
+      "settings": {
+        "clients": [
+          {
+            "id": "UUID", 
+            "level": 1, 
+            "alterId": 10
+          }
+        ]
+      },
+      "streamSettings": {
       "network": "ws", 
       "wsSettings": {
         "path": "/bluemix"
-      }
-    }
-  }, 
-  "outbound": {
-    "protocol": "freedom", 
-    "settings": {}
-  }, 
-  "outboundDetour": [
-    {
-      "protocol": "blackhole", 
-      "settings": {}, 
-      "tag": "blocked"
-    }
-  ], 
-  "routing": {
-    "strategy": "rules", 
-    "settings": {
-      "rules": [
-        {
-          "type": "field", 
-          "ip": [
-            "geoip:private"
-          ], 
-          "outboundTag": "blocked"
         }
-      ]
+      }
+    }, 
+    {
+      "listen":"0.0.0.0",
+      "port":10800, 
+      "protocol":"mtproto", 
+      "settings":{
+        "users":[
+          {
+            "secret":"TGKEY"
+          }
+        ]
+      },
+      "tag":"tg-in"
     }
+  ],
+  "outbounds":[
+    {
+      "protocol":"freedom",
+      "settings":{}
+    },
+    {
+      "protocol":"blackhole",
+      "settings":{},
+      "tag":"blocked"
+    },
+    {
+      "protocol": "mtproto", 
+      "settings": {},
+      "tag": "tg-out"
+    }
+  ],
+  "routing": {
+    "rules":[
+      {
+        "type": "field", 
+        "inboundTag": [
+          "tg-in"
+        ],
+        "outboundTag": "tg-out"
+      },
+      {
+        "type": "field", 
+        "ip": [
+          "geoip:private"
+        ], 
+        "outboundTag": "blocked"
+      }
+    ]
   }
 }

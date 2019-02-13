@@ -20,6 +20,16 @@ else
   sed -i "s/UUID/$UUID/g" /etc/v2ray/config.json
   echo "UUID is set $UUID"
 fi
+# Config TGKEY
+if [ -n "$TGKEY" ];then
+  sed -i "s/TGKEY/$TGKEY/g" /etc/v2ray/config.json
+  echo "You've set an TGKEY"
+  echo "The TGKEY is: $TGKEY"
+else
+  export TGKEY=$(openssl rand -hex 16)
+  sed -i "s/TGKEY/$TGKEY/g" /etc/v2ray/config.json
+  echo "TGKEY is set $TGKEY"
+fi
 # service bt restart
 /usr/bin/supervisord -c /etc/supervisord.conf
 exec "$@"
