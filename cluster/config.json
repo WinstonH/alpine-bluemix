@@ -4,8 +4,9 @@
     "error": "/var/log/v2ray/error.log", 
     "loglevel": "warning"
   }, 
-  "inbound": [
+  "inbounds": [
     {
+      "listen":"0.0.0.0",
       "port": 10240, 
       "protocol": "vmess", 
       "settings": {
