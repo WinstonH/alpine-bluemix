@@ -19,9 +19,9 @@
         ]
       },
       "streamSettings": {
-      "network": "ws", 
-      "wsSettings": {
-        "path": "/bluemix"
+        "network": "ws", 
+        "wsSettings": {
+          "path": "/bluemix"
         }
       }
     }, 
