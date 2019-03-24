@@ -9,8 +9,9 @@ ENV LANG zh_CN.UTF-8
 RUN echo "$TZ" > /etc/timezone
 
 # Desktop
-RUN locale-gen zh_CN.UTF-8 \
-&& apt-get update \
+RUN apt-get update \
+&& apt-get install locales \
+&& locale-gen zh_CN.UTF-8 \
 && apt-get install -y --no-install-recommends ubuntu-desktop \
 && apt-get install -y gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal \
 && apt-get install -y tightvncserver \
