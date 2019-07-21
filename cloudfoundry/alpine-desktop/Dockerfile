@@ -14,7 +14,7 @@ RUN apk --update --no-cache add wget curl git x11vnc xvfb xrdp xauth alpine-desk
 && addgroup alpine \
 && adduser  -G alpine -s /bin/sh -D alpine \
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
-&& echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+&& echo "alpine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 && rm -rf /tmp/* /var/cache/apk/*
 # 使用entrypoint.sh，便于定制自己的镜像
 COPY entrypoint.sh /usr/sbin/entrypoint.sh

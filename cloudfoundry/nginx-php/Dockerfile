@@ -16,17 +16,17 @@ RUN adduser -D -g 'www' www && \
     chown -R www:www /www && \
     cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 COPY nginx.conf /etc/nginx/
-ENV PHP_FPM_USER="www"
-ENV PHP_FPM_GROUP="www"
-ENV PHP_FPM_LISTEN_MODE="0660"
-ENV PHP_MEMORY_LIMIT="512M"
-ENV PHP_MAX_UPLOAD="50M"
-ENV PHP_MAX_FILE_UPLOAD="200"
-ENV PHP_MAX_POST="100M"
-ENV PHP_DISPLAY_ERRORS="On"
-ENV PHP_DISPLAY_STARTUP_ERRORS="On"
-ENV PHP_ERROR_REPORTING="E_COMPILE_ERROR\|E_RECOVERABLE_ERROR\|E_ERROR\|E_CORE_ERROR"
-ENV PHP_CGI_FIX_PATHINFO=0
+ENV PHP_FPM_USER="www" \
+    PHP_FPM_GROUP="www" \
+    PHP_FPM_LISTEN_MODE="0660" \
+    PHP_MEMORY_LIMIT="512M" \
+    PHP_MAX_UPLOAD="50M" \
+    PHP_MAX_FILE_UPLOAD="200" \
+    PHP_MAX_POST="100M" \
+    PHP_DISPLAY_ERRORS="On" \
+    PHP_DISPLAY_STARTUP_ERRORS="On" \
+    PHP_ERROR_REPORTING="E_COMPILE_ERROR\|E_RECOVERABLE_ERROR\|E_ERROR\|E_CORE_ERROR" \
+    PHP_CGI_FIX_PATHINFO=0
 RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = ${PHP_FPM_USER}|g" /etc/php7/php-fpm.conf && \
     sed -i "s|;listen.group\s*=\s*nobody|listen.group = ${PHP_FPM_GROUP}|g" /etc/php7/php-fpm.conf && \
     sed -i "s|;listen.mode\s*=\s*0660|listen.mode = ${PHP_FPM_LISTEN_MODE}|g" /etc/php7/php-fpm.conf && \
@@ -50,7 +50,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 && addgroup alpine \
 && adduser  -G alpine -s /bin/sh -D alpine \
 && echo "alpine:alpine" | /usr/sbin/chpasswd \
-&& echo "alpine    ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+&& echo "alpine ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
 && git clone https://github.com/novnc/noVNC.git \
 && ln -s /noVNC/vnc.html /noVNC/index.html
 RUN xrdp-keygen xrdp auto \
