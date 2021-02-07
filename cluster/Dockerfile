@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
@@ -11,10 +11,10 @@ RUN echo "$TZ" > /etc/timezone \
 && apt-get install locales \
 && locale-gen zh_CN.UTF-8 \
 && apt-get install -y --no-install-recommends ubuntu-desktop \
-&& apt-get install -y gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal \
-&& apt-get install -y tightvncserver \
-&& apt-get install -y openssh-server supervisor vim git curl wget sudo build-essential firefox firefox-locale-zh-hans ttf-wqy-microhei libnet1-dev libpcap0.8-dev \
-&& apt-get install -y language-pack-zh-hans-base language-pack-zh-hans language-pack-gnome-zh-hans language-pack-gnome-zh-hans-base \
+gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal \
+tightvncserver \
+openssh-server supervisor vim git curl wget sudo build-essential firefox firefox-locale-zh-hans ttf-wqy-microhei libnet1-dev libpcap0.8-dev \
+language-pack-zh-hans-base language-pack-zh-hans language-pack-gnome-zh-hans language-pack-gnome-zh-hans-base \
 && mkdir /root/.vnc \
 && mkdir -p /var/run/sshd \
 && echo 'root:root' |chpasswd \
@@ -34,7 +34,7 @@ RUN git clone https://github.com/snooda/net-speeder.git net-speeder \
 RUN curl https://i.jpillora.com/cloud-torrent! | bash
 # V2Ray
 ENV PATH /usr/bin/v2ray:$PATH
-RUN curl -sL https://install.direct/go.sh | bash
+RUN curl -sL https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh | bash
 COPY config.json /etc/v2ray/config.json
 # Finish
 
